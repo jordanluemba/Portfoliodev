@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gestion Parc Auto - App Tkinter Style</title>
+    <title>Gestion Parc Auto - Connexion</title>
     <style>
         :root {
             --bg-color: #f0f0f0;
@@ -21,15 +21,18 @@
             background-color: var(--bg-color);
             color: var(--text-color);
             margin: 0;
-            padding: 20px;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
             font-size: 14px;
         }
         
-        .tk-app {
-            width: 900px;
-            margin: 0 auto;
-            border: 2px solid var(--frame-color);
+        .tk-login-container {
+            width: 380px;
             background: var(--bg-color);
+            border: 2px solid var(--frame-color);
             box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
         }
         
@@ -62,91 +65,62 @@
             cursor: pointer;
         }
         
-        .tk-menu-bar {
-            background: var(--bg-color);
-            border-bottom: 1px solid var(--shadow-color);
-            padding: 4px 6px;
-            display: flex;
-        }
-        
-        .tk-menu-item {
-            padding: 4px 12px;
-            margin-right: 2px;
-            cursor: pointer;
-            border: 1px solid transparent;
-        }
-        
-        .tk-menu-item:hover {
-            background: var(--highlight-color);
-            border: 1px solid var(--shadow-color);
-            border-radius: 3px;
-        }
-        
-        .tk-main {
-            display: flex;
-            min-height: 500px;
-        }
-        
-        .tk-sidebar {
-            width: 180px;
-            background: var(--frame-color);
-            border-right: 1px solid var(--shadow-color);
-            padding: 10px;
-        }
-        
-        .tk-sidebar-btn {
-            display: block;
-            width: 100%;
-            text-align: left;
-            padding: 6px 10px;
-            margin-bottom: 4px;
-            background: var(--button-bg);
-            border: 1px solid var(--shadow-color);
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 13px;
-        }
-        
-        .tk-sidebar-btn:hover {
-            background: var(--highlight-color);
-        }
-        
-        .tk-sidebar-btn.active {
-            background: var(--active-color);
-            color: white;
-            border-color: #002d9e;
-        }
-        
-        .tk-content {
-            flex: 1;
-            padding: 15px;
+        .tk-login-body {
+            padding: 20px;
             background: white;
             border: 1px solid var(--shadow-color);
-            margin: 8px;
-            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
         }
         
-        .tk-frame {
-            border: 2px solid var(--frame-color);
-            padding: 10px;
-            margin-bottom: 15px;
-            background: var(--bg-color);
+        .tk-login-logo {
+            text-align: center;
+            margin-bottom: 20px;
         }
         
-        .tk-frame-title {
-            position: relative;
-            top: -18px;
-            left: 10px;
-            background: var(--bg-color);
-            padding: 0 5px;
+        .tk-login-logo img {
+            width: 80px;
+            height: 80px;
+            object-fit: contain;
+        }
+        
+        .tk-login-title {
+            font-size: 18px;
             font-weight: bold;
+            margin: 10px 0 5px;
+        }
+        
+        .tk-login-subtitle {
+            color: #666;
+            margin-bottom: 20px;
+        }
+        
+        .tk-form-group {
+            margin-bottom: 15px;
+        }
+        
+        .tk-form-label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        
+        .tk-entry {
+            border: 2px solid var(--shadow-color);
+            padding: 6px 8px;
+            background: white;
+            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            box-sizing: border-box;
+        }
+        
+        .tk-entry:focus {
+            outline: none;
+            border-color: var(--active-color);
         }
         
         .tk-button {
             background: var(--button-bg);
             border: 1px solid var(--shadow-color);
-            padding: 4px 12px;
-            margin-right: 6px;
+            padding: 6px 12px;
             cursor: pointer;
             border-radius: 3px;
             box-shadow: 1px 1px 1px rgba(0, 0, 0, 0.1);
@@ -166,70 +140,104 @@
             background: var(--active-color);
             color: white;
             border-color: #002d9e;
+            width: 100%;
+            padding: 8px;
+            font-weight: bold;
         }
         
         .tk-button-primary:hover {
             background: #0053e0;
         }
         
-        .tk-entry {
-            border: 2px solid var(--shadow-color);
-            padding: 4px 6px;
-            background: white;
-            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
-        }
-        
-        .tk-entry:focus {
-            outline: none;
-            border-color: var(--active-color);
-        }
-        
-        .tk-combobox {
-            border: 2px solid var(--shadow-color);
-            padding: 4px 6px;
-            background: white;
-            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
-            appearance: none;
-            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='black'%3e%3cpath d='M7 10l5 5 5-5z'/%3e%3c/svg%3e");
-            background-repeat: no-repeat;
-            background-position: right 5px center;
-            background-size: 16px;
-            padding-right: 25px;
-        }
-        
-        .tk-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 10px;
-        }
-        
-        .tk-table th {
-            background: var(--active-color);
-            color: white;
-            text-align: left;
-            padding: 4px 8px;
-            border: 1px solid #002d9e;
-        }
-        
-        .tk-table td {
-            padding: 4px 8px;
-            border: 1px solid var(--shadow-color);
-            background: white;
-        }
-        
-        .tk-table tr:nth-child(even) td {
-            background: #f8f8f8;
-        }
-        
-        .tk-statusbar {
+        .tk-login-footer {
             background: var(--frame-color);
             border-top: 1px solid var(--shadow-color);
-            padding: 4px 8px;
-            display: flex;
-            justify-content: space-between;
+            padding: 8px;
+            text-align: center;
             font-size: 12px;
+            color: #666;
         }
         
+        .tk-checkbox {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .tk-checkbox input {
+            margin-right: 8px;
+        }
+        
+        /* Styles pour l'écran de démarrage */
+        .tk-splash-container {
+            width: 500px;
+            height: 300px;
+            background: white;
+            border: 2px solid var(--frame-color);
+            box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .tk-splash-header {
+            background: linear-gradient(to bottom, #245edb, #1e4db5);
+            color: white;
+            padding: 10px;
+            text-align: center;
+            font-weight: bold;
+        }
+        
+        .tk-splash-body {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .tk-splash-logo {
+            width: 120px;
+            height: 120px;
+            margin-bottom: 20px;
+        }
+        
+        .tk-splash-title {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        
+        .tk-splash-version {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .tk-splash-progress {
+            width: 80%;
+            height: 20px;
+            border: 2px solid var(--shadow-color);
+            box-shadow: inset 1px 1px 2px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .tk-splash-progress-bar {
+            height: 100%;
+            width: 0%;
+            background: var(--active-color);
+            transition: width 0.3s;
+        }
+        
+        .tk-splash-footer {
+            background: var(--frame-color);
+            border-top: 1px solid var(--shadow-color);
+            padding: 8px;
+            text-align: center;
+            font-size: 11px;
+            color: #666;
+        }
+        
+        /* Masquer les écrans non actifs */
         .screen {
             display: none;
         }
@@ -237,330 +245,66 @@
         .active-screen {
             display: block;
         }
-        
-        .tk-tabs {
-            display: flex;
-            border-bottom: 1px solid var(--shadow-color);
-            margin-bottom: 15px;
-        }
-        
-        .tk-tab {
-            padding: 6px 15px;
-            background: var(--button-bg);
-            border: 1px solid var(--shadow-color);
-            border-bottom: none;
-            margin-right: 4px;
-            cursor: pointer;
-            border-radius: 3px 3px 0 0;
-        }
-        
-        .tk-tab.active {
-            background: white;
-            border-bottom: 1px solid white;
-            margin-bottom: -1px;
-        }
     </style>
 </head>
 <body>
-    <div class="tk-app">
-        <!-- Barre de titre -->
+    <!-- ==================== ÉCRAN DE DÉMARRAGE ==================== -->
+    <div class="tk-splash-container active-screen" id="splash-screen">
+        <div class="tk-splash-header">
+            Gestion Parc Automobile MIC
+        </div>
+        <div class="tk-splash-body">
+            <img src="https://via.placeholder.com/120/003eff/FFFFFF?text=MIC" alt="Logo" class="tk-splash-logo">
+            <div class="tk-splash-title">AutoManager</div>
+            <div class="tk-splash-version">Version 2.1.0</div>
+            <div class="tk-splash-progress">
+                <div class="tk-splash-progress-bar" id="splash-progress"></div>
+            </div>
+            <div>Chargement des modules...</div>
+        </div>
+        <div class="tk-splash-footer">
+            © 2023 Ministère de l'Intérieur et des Collectivités | Tous droits réservés
+        </div>
+    </div>
+    
+    <!-- ==================== ÉCRAN DE CONNEXION ==================== -->
+    <div class="tk-login-container screen" id="login-screen">
         <div class="tk-titlebar">
-            <div class="tk-title">Gestion Parc Automobile MIC</div>
-            <div class="tk-close-btn">✕</div>
+            <div class="tk-title">Connexion - Gestion Parc Auto</div>
+            <div class="tk-close-btn" onclick="window.close()">✕</div>
         </div>
         
-        <!-- Barre de menu -->
-        <div class="tk-menu-bar">
-            <div class="tk-menu-item">Fichier</div>
-            <div class="tk-menu-item">Édition</div>
-            <div class="tk-menu-item">Outils</div>
-            <div class="tk-menu-item">Aide</div>
-        </div>
-        
-        <div class="tk-main">
-            <!-- Sidebar -->
-            <div class="tk-sidebar">
-                <button class="tk-sidebar-btn active" onclick="showScreen('dashboard')">
-                    <i class="fas fa-home"></i> Tableau de bord
-                </button>
-                <button class="tk-sidebar-btn" onclick="showScreen('vehicules')">
-                    <i class="fas fa-car"></i> Véhicules
-                </button>
-                <button class="tk-sidebar-btn" onclick="showScreen('proprietaires')">
-                    <i class="fas fa-users"></i> Propriétaires
-                </button>
-                <button class="tk-sidebar-btn" onclick="showScreen('reservations')">
-                    <i class="fas fa-calendar"></i> Réservations
-                </button>
-                <button class="tk-sidebar-btn" onclick="showScreen('maintenance')">
-                    <i class="fas fa-tools"></i> Maintenance
-                </button>
-                <button class="tk-sidebar-btn" onclick="showScreen('rapports')">
-                    <i class="fas fa-chart-bar"></i> Rapports
-                </button>
-                <div style="margin-top: 20px;">
-                    <button class="tk-sidebar-btn text-danger" onclick="logout()">
-                        <i class="fas fa-sign-out-alt"></i> Déconnexion
-                    </button>
-                </div>
+        <div class="tk-login-body">
+            <div class="tk-login-logo">
+                <img src="https://via.placeholder.com/80/003eff/FFFFFF?text=MIC" alt="Logo MIC">
+                <div class="tk-login-title">AutoManager</div>
+                <div class="tk-login-subtitle">Gestion du parc automobile</div>
             </div>
             
-            <!-- Contenu principal -->
-            <div class="tk-content">
-                <!-- Tableau de bord -->
-                <div class="screen active-screen" id="dashboard-screen">
-                    <h3 style="margin-top: 0;">Tableau de bord</h3>
-                    
-                    <div style="display: flex; gap: 15px; margin-bottom: 20px;">
-                        <div class="tk-frame" style="flex: 1;">
-                            <div class="tk-frame-title">Statistiques</div>
-                            <div style="display: flex; justify-content: space-around; text-align: center;">
-                                <div>
-                                    <div style="font-size: 24px; font-weight: bold;">42</div>
-                                    <div>Véhicules</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 24px; font-weight: bold;">18</div>
-                                    <div>Propriétaires</div>
-                                </div>
-                                <div>
-                                    <div style="font-size: 24px; font-weight: bold;">7</div>
-                                    <div>Réservations</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="tk-frame">
-                        <div class="tk-frame-title">Activité récente</div>
-                        <table class="tk-table">
-                            <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Type</th>
-                                    <th>Description</th>
-                                    <th>Utilisateur</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td>12/06/2023</td>
-                                    <td>Ajout</td>
-                                    <td>Nouveau véhicule ABC-123</td>
-                                    <td>admin</td>
-                                </tr>
-                                <tr>
-                                    <td>10/06/2023</td>
-                                    <td>Réservation</td>
-                                    <td>Véhicule DEF-456 loué</td>
-                                    <td>agent1</td>
-                                </tr>
-                                <tr>
-                                    <td>08/06/2023</td>
-                                    <td>Maintenance</td>
-                                    <td>Vidange GHI-789</td>
-                                    <td>mecanicien</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+            <form>
+                <div class="tk-form-group">
+                    <label class="tk-form-label">Nom d'utilisateur</label>
+                    <input type="text" class="tk-entry" placeholder="Entrez votre nom d'utilisateur">
                 </div>
                 
-                <!-- Gestion des véhicules -->
-                <div class="screen" id="vehicules-screen">
-                    <div style="display: flex; justify-content: space-between; align-items: center;">
-                        <h3 style="margin-top: 0;">Gestion des véhicules</h3>
-                        <button class="tk-button tk-button-primary" onclick="openVehicleForm()">
-                            <i class="fas fa-plus"></i> Ajouter
-                        </button>
-                    </div>
-                    
-                    <div class="tk-tabs">
-                        <div class="tk-tab active">Tous les véhicules</div>
-                        <div class="tk-tab">Disponibles</div>
-                        <div class="tk-tab">En location</div>
-                        <div class="tk-tab">En maintenance</div>
-                    </div>
-                    
-                    <div style="margin-bottom: 15px; display: flex; gap: 10px;">
-                        <input type="text" class="tk-entry" placeholder="Rechercher..." style="flex: 1;">
-                        <button class="tk-button">
-                            <i class="fas fa-search"></i> Rechercher
-                        </button>
-                    </div>
-                    
-                    <table class="tk-table">
-                        <thead>
-                            <tr>
-                                <th>Immatriculation</th>
-                                <th>Marque</th>
-                                <th>Modèle</th>
-                                <th>Statut</th>
-                                <th>Actions</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>ABC-123</td>
-                                <td>Toyota</td>
-                                <td>Corolla</td>
-                                <td><span style="color: green;">Disponible</span></td>
-                                <td>
-                                    <button class="tk-button" title="Modifier">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="tk-button" title="Supprimer">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>DEF-456</td>
-                                <td>Ford</td>
-                                <td>Focus</td>
-                                <td><span style="color: orange;">En location</span></td>
-                                <td>
-                                    <button class="tk-button" title="Modifier">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="tk-button" title="Supprimer">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>GHI-789</td>
-                                <td>Renault</td>
-                                <td>Clio</td>
-                                <td><span style="color: red;">En maintenance</span></td>
-                                <td>
-                                    <button class="tk-button" title="Modifier">
-                                        <i class="fas fa-edit"></i>
-                                    </button>
-                                    <button class="tk-button" title="Supprimer">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                    
-                    <div style="display: flex; justify-content: space-between; margin-top: 15px;">
-                        <div>
-                            <button class="tk-button">
-                                <i class="fas fa-file-export"></i> Exporter
-                            </button>
-                        </div>
-                        <div>
-                            <button class="tk-button">
-                                <i class="fas fa-chevron-left"></i>
-                            </button>
-                            <span style="margin: 0 10px;">Page 1 sur 3</span>
-                            <button class="tk-button">
-                                <i class="fas fa-chevron-right"></i>
-                            </button>
-                        </div>
-                    </div>
+                <div class="tk-form-group">
+                    <label class="tk-form-label">Mot de passe</label>
+                    <input type="password" class="tk-entry" placeholder="Entrez votre mot de passe">
                 </div>
                 
-                <!-- Formulaire véhicule (masqué par défaut) -->
-                <div class="screen" id="vehicle-form-screen">
-                    <h3 style="margin-top: 0;">
-                        <button class="tk-button" onclick="showScreen('vehicules')" style="margin-right: 10px;">
-                            <i class="fas fa-arrow-left"></i>
-                        </button>
-                        Nouveau véhicule
-                    </h3>
-                    
-                    <div class="tk-frame">
-                        <div class="tk-frame-title">Informations du véhicule</div>
-                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
-                            <div>
-                                <label>Immatriculation</label>
-                                <input type="text" class="tk-entry" style="width: 100%;">
-                            </div>
-                            <div>
-                                <label>Numéro de châssis</label>
-                                <input type="text" class="tk-entry" style="width: 100%;">
-                            </div>
-                            <div>
-                                <label>Marque</label>
-                                <select class="tk-combobox" style="width: 100%;">
-                                    <option>Sélectionner...</option>
-                                    <option>Toyota</option>
-                                    <option>Ford</option>
-                                    <option>Renault</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Modèle</label>
-                                <select class="tk-combobox" style="width: 100%;">
-                                    <option>Sélectionner...</option>
-                                    <option>Corolla</option>
-                                    <option>Focus</option>
-                                    <option>Clio</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label>Année</label>
-                                <input type="text" class="tk-entry" style="width: 100%;">
-                            </div>
-                            <div>
-                                <label>Couleur</label>
-                                <input type="text" class="tk-entry" style="width: 100%;">
-                            </div>
-                        </div>
-                        
-                        <div style="margin-top: 20px; display: flex; justify-content: flex-end; gap: 10px;">
-                            <button class="tk-button">
-                                <i class="fas fa-times"></i> Annuler
-                            </button>
-                            <button class="tk-button tk-button-primary">
-                                <i class="fas fa-save"></i> Enregistrer
-                            </button>
-                        </div>
-                    </div>
+                <div class="tk-checkbox">
+                    <input type="checkbox" id="remember">
+                    <label for="remember">Se souvenir de moi</label>
                 </div>
                 
-                <!-- Autres écrans -->
-                <div class="screen" id="proprietaires-screen">
-                    <h3 style="margin-top: 0;">Gestion des propriétaires</h3>
-                    <div class="tk-frame">
-                        <div class="tk-frame-title">Contenu à implémenter</div>
-                        <p>Interface de gestion des propriétaires...</p>
-                    </div>
-                </div>
-                
-                <div class="screen" id="reservations-screen">
-                    <h3 style="margin-top: 0;">Gestion des réservations</h3>
-                    <div class="tk-frame">
-                        <div class="tk-frame-title">Contenu à implémenter</div>
-                        <p>Interface de gestion des réservations...</p>
-                    </div>
-                </div>
-                
-                <div class="screen" id="maintenance-screen">
-                    <h3 style="margin-top: 0;">Gestion de la maintenance</h3>
-                    <div class="tk-frame">
-                        <div class="tk-frame-title">Contenu à implémenter</div>
-                        <p>Interface de gestion de la maintenance...</p>
-                    </div>
-                </div>
-                
-                <div class="screen" id="rapports-screen">
-                    <h3 style="margin-top: 0;">Rapports et statistiques</h3>
-                    <div class="tk-frame">
-                        <div class="tk-frame-title">Contenu à implémenter</div>
-                        <p>Interface des rapports et statistiques...</p>
-                    </div>
-                </div>
-            </div>
+                <button type="button" class="tk-button tk-button-primary" onclick="login()">
+                    <i class="fas fa-sign-in-alt"></i> Se connecter
+                </button>
+            </form>
         </div>
         
-        <!-- Barre de statut -->
-        <div class="tk-statusbar">
-            <div>Prêt</div>
-            <div id="datetime">12/06/2023 14:30:45</div>
+        <div class="tk-login-footer">
+            © 2023 Ministère de l'Intérieur et des Collectivités | Version 2.1.0
         </div>
     </div>
 
@@ -568,46 +312,45 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     
     <script>
-        // Fonctions de navigation
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(el => {
-                el.classList.remove('active-screen');
-            });
-            document.getElementById(screenId + '-screen').classList.add('active-screen');
+        // Simuler le chargement de l'application
+        function simulateLoading() {
+            const progressBar = document.getElementById('splash-progress');
+            let progress = 0;
             
-            // Mettre à jour le bouton actif dans la sidebar
-            document.querySelectorAll('.tk-sidebar-btn').forEach(btn => {
-                btn.classList.remove('active');
-            });
-            document.querySelector(`.tk-sidebar-btn[onclick="showScreen('${screenId}')"]`).classList.add('active');
+            const interval = setInterval(() => {
+                progress += Math.random() * 10;
+                if (progress > 100) progress = 100;
+                progressBar.style.width = progress + '%';
+                
+                if (progress === 100) {
+                    clearInterval(interval);
+                    setTimeout(() => {
+                        document.getElementById('splash-screen').classList.remove('active-screen');
+                        document.getElementById('login-screen').classList.add('active-screen');
+                    }, 500);
+                }
+            }, 300);
         }
         
-        function openVehicleForm() {
-            showScreen('vehicle-form');
+        // Fonction de connexion
+        function login() {
+            // Ici, vous devriez ajouter la logique de validation
+            // Pour cet exemple, nous simulons simplement une connexion réussie
+            alert("Connexion réussie! Redirection...");
+            
+            // Rediriger vers l'application principale
+            window.location.href = "application.html"; // Remplacez par votre vraie page
         }
         
-        function logout() {
-            if(confirm("Voulez-vous vraiment vous déconnecter ?")) {
-                showScreen('dashboard');
+        // Démarrer la simulation de chargement au démarrage
+        window.onload = simulateLoading;
+        
+        // Fermer l'application
+        function closeApp() {
+            if(confirm("Voulez-vous vraiment quitter l'application ?")) {
+                window.close();
             }
         }
-        
-        // Mettre à jour l'heure
-        function updateDateTime() {
-            const now = new Date();
-            document.getElementById('datetime').textContent = now.toLocaleString('fr-FR');
-        }
-        
-        setInterval(updateDateTime, 1000);
-        updateDateTime();
-        
-        // Gestion des onglets
-        document.querySelectorAll('.tk-tab').forEach(tab => {
-            tab.addEventListener('click', function() {
-                document.querySelectorAll('.tk-tab').forEach(t => t.classList.remove('active'));
-                this.classList.add('active');
-            });
-        });
     </script>
 </body>
 </html>
