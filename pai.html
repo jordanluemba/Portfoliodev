@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion Parc Automobile MIC</title>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --light-color: #ecf0f1;
+            --dark-color: #34495e;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f5f5;
+        }
+        
+        .desktop-app {
+            max-width: 1200px;
+            margin: 20px auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .app-header {
+            background: var(--primary-color);
+            color: white;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .app-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .app-body {
+            padding: 20px;
+        }
+        
+        .form-section {
+            background: var(--light-color);
+            padding: 20px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        
+        .table-section {
+            margin-top: 20px;
+        }
+        
+        .action-buttons {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+        
+        .main-menu {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .menu-btn {
+            flex: 1 1 200px;
+        }
+        
+        .status-bar {
+            background: var(--dark-color);
+            color: white;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="desktop-app">
+        <!-- ==================== ÉCRAN D'ACCUEIL ==================== -->
+        <div class="app-header">
+            <div class="app-title">
+                <i class="fas fa-car me-2"></i>Gestion Parc Automobile MIC
+            </div>
+        </div>
+        
+        <div class="app-body text-center" id="accueil">
+            <img src="https://via.placeholder.com/150" alt="Logo MIC" class="mb-4">
+            <h2 class="mb-4">Bienvenue dans le système de gestion</h2>
+            <button class="btn btn-primary btn-lg" onclick="showScreen('login')">
+                <i class="fas fa-sign-in-alt me-2"></i>Commencer
+            </button>
+        </div>
+        
+        <hr>
+        
+        <!-- ==================== ÉCRAN DE CONNEXION ==================== -->
+        <div class="app-body" id="login" style="display: none;">
+            <h3 class="mb-4"><i class="fas fa-user-lock me-2"></i>Connexion</h3>
+            
+            <div class="row justify-content-center">
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-body">
+                            <form>
+                                <div class="mb-3">
+                                    <label for="username" class="form-label">Nom d'utilisateur</label>
+                                    <input type="text" class="form-control" id="username" required>
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Mot de passe</label>
+                                    <input type="password" class="form-control" id="password" required>
+                                </div>
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-secondary" onclick="showScreen('accueil')">
+                                        <i class="fas fa-arrow-left me-2"></i>Retour
+                                    </button>
+                                    <button type="button" class="btn btn-primary" onclick="showScreen('menu')">
+                                        <i class="fas fa-sign-in-alt me-2"></i>Se connecter
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <!-- ==================== MENU PRINCIPAL ==================== -->
+        <div class="app-body" id="menu" style="display: none;">
+            <h3 class="mb-4"><i class="fas fa-bars me-2"></i>Menu Principal</h3>
+            
+            <div class="main-menu">
+                <button class="btn btn-outline-primary menu-btn" onclick="showScreen('vehicules')">
+                    <i class="fas fa-car me-2"></i>Gestion des véhicules
+                </button>
+                <button class="btn btn-outline-primary menu-btn" onclick="showScreen('proprietaires')">
+                    <i class="fas fa-users me-2"></i>Gestion des propriétaires
+                </button>
+                <button class="btn btn-outline-primary menu-btn" onclick="showScreen('reservations')">
+                    <i class="fas fa-calendar-check me-2"></i>Gestion des réservations
+                </button>
+                <button class="btn btn-outline-primary menu-btn" onclick="showScreen('paiements')">
+                    <i class="fas fa-money-bill-wave me-2"></i>Gestion des paiements
+                </button>
+                <button class="btn btn-outline-primary menu-btn" onclick="showScreen('services')">
+                    <i class="fas fa-tools me-2"></i>Gestion des services
+                </button>
+                <button class="btn btn-outline-primary menu-btn" onclick="showScreen('marques')">
+                    <i class="fas fa-tags me-2"></i>Gestion des marques
+                </button>
+                <button class="btn btn-outline-primary menu-btn" onclick="showScreen('modeles')">
+                    <i class="fas fa-car-side me-2"></i>Gestion des modèles
+                </button>
+                <button class="btn btn-outline-primary menu-btn" onclick="showScreen('etats')">
+                    <i class="fas fa-print me-2"></i>Impressions/États
+                </button>
+                <button class="btn btn-outline-danger menu-btn" onclick="showScreen('logout')">
+                    <i class="fas fa-sign-out-alt me-2"></i>Déconnexion
+                </button>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <!-- ==================== GESTION DES VÉHICULES ==================== -->
+        <div class="app-body" id="vehicules" style="display: none;">
+            <h3 class="mb-4"><i class="fas fa-car me-2"></i>Gestion des véhicules</h3>
+            
+            <div class="form-section">
+                <h4><i class="fas fa-plus-circle me-2"></i>Nouveau véhicule</h4>
+                <form>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="immatriculation" class="form-label">Immatriculation</label>
+                                <input type="text" class="form-control" id="immatriculation" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="numero_chassis" class="form-label">Numéro de châssis</label>
+                                <input type="text" class="form-control" id="numero_chassis" required>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="marque_vehicule" class="form-label">Marque</label>
+                                <select class="form-select" id="marque_vehicule" required>
+                                    <option value="">Sélectionnez une marque</option>
+                                    <option>Toyota</option>
+                                    <option>Ford</option>
+                                    <option>Renault</option>
+                                </select>
+                            </div>
+                            <div class="mb-3">
+                                <label for="modele_vehicule" class="form-label">Modèle</label>
+                                <select class="form-select" id="modele_vehicule" required>
+                                    <option value="">Sélectionnez un modèle</option>
+                                    <option>Corolla</option>
+                                    <option>Focus</option>
+                                    <option>Clio</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="couleur" class="form-label">Couleur</label>
+                                <input type="text" class="form-control" id="couleur">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-success">
+                            <i class="fas fa-save me-2"></i>Ajouter
+                        </button>
+                        <button type="button" class="btn btn-warning">
+                            <i class="fas fa-edit me-2"></i>Modifier
+                        </button>
+                        <button type="button" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Supprimer
+                        </button>
+                        <button type="button" class="btn btn-secondary ms-auto" onclick="showScreen('menu')">
+                            <i class="fas fa-arrow-left me-2"></i>Retour
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="table-section">
+                <h4><i class="fas fa-list me-2"></i>Liste des véhicules</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Immatriculation</th>
+                                <th>Marque</th>
+                                <th>Modèle</th>
+                                <th>Couleur</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>ABC123</td>
+                                <td>Toyota</td>
+                                <td>Corolla</td>
+                                <td>Rouge</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>DEF456</td>
+                                <td>Ford</td>
+                                <td>Focus</td>
+                                <td>Bleu</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <!-- ==================== GESTION DES PROPRIÉTAIRES ==================== -->
+        <div class="app-body" id="proprietaires" style="display: none;">
+            <h3 class="mb-4"><i class="fas fa-users me-2"></i>Gestion des propriétaires</h3>
+            
+            <div class="form-section">
+                <h4><i class="fas fa-user-plus me-2"></i>Nouveau propriétaire</h4>
+                <form>
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="nom" class="form-label">Nom</label>
+                                <input type="text" class="form-control" id="nom" required>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="postnom" class="form-label">Post-nom</label>
+                                <input type="text" class="form-control" id="postnom">
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div class="mb-3">
+                                <label for="prenom" class="form-label">Prénom</label>
+                                <input type="text" class="form-control" id="prenom" required>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="mb-3">
+                                <label for="adresse" class="form-label">Adresse</label>
+                                <textarea class="form-control" id="adresse" rows="2"></textarea>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="telephone" class="form-label">Téléphone</label>
+                                <input type="tel" class="form-control" id="telephone">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="email" class="form-label">Email</label>
+                                <input type="email" class="form-control" id="email">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-success">
+                            <i class="fas fa-save me-2"></i>Ajouter
+                        </button>
+                        <button type="button" class="btn btn-warning">
+                            <i class="fas fa-edit me-2"></i>Modifier
+                        </button>
+                        <button type="button" class="btn btn-danger">
+                            <i class="fas fa-trash me-2"></i>Supprimer
+                        </button>
+                        <button type="button" class="btn btn-secondary ms-auto" onclick="showScreen('menu')">
+                            <i class="fas fa-arrow-left me-2"></i>Retour
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="table-section">
+                <h4><i class="fas fa-list me-2"></i>Liste des propriétaires</h4>
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>Nom complet</th>
+                                <th>Adresse</th>
+                                <th>Téléphone</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Dupont Jean</td>
+                                <td>123 Rue Principale</td>
+                                <td>+123456789</td>
+                                <td>jean@example.com</td>
+                                <td>
+                                    <button class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></button>
+                                    <button class="btn btn-sm btn-warning"><i class="fas fa-edit"></i></button>
+                                    <button class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+        <hr>
+        
+        <!-- ==================== GESTION DES RÉSERVATIONS ==================== -->
+        <div class="app-body" id="reservations" style="display: none;">
+            <h3 class="mb-4"><i class="fas fa-calendar-check me-2"></i>Gestion des réservations</h3>
+            
+            <!-- Contenu similaire aux autres sections -->
+            <div class="alert alert-info">
+                Structure similaire aux autres écrans (formulaire + tableau)
+            </div>
+            <button class="btn btn-secondary" onclick="showScreen('menu')">
+                <i class="fas fa-arrow-left me-2"></i>Retour au menu
+            </button>
+        </div>
+        
+        <hr>
+        
+        <!-- ==================== AUTRES ÉCRANS ==================== -->
+        <!-- Les autres écrans (paiements, services, marques, modèles, états) suivent le même modèle -->
+        
+        <!-- ==================== DÉCONNEXION ==================== -->
+        <div class="app-body text-center" id="logout" style="display: none;">
+            <div class="alert alert-warning">
+                <h4><i class="fas fa-sign-out-alt me-2"></i>Déconnexion</h4>
+                <p>Voulez-vous vraiment quitter l'application ?</p>
+                
+                <div class="d-flex justify-content-center gap-3">
+                    <button class="btn btn-danger" onclick="showScreen('accueil')">
+                        <i class="fas fa-check me-2"></i>Oui, quitter
+                    </button>
+                    <button class="btn btn-secondary" onclick="showScreen('menu')">
+                        <i class="fas fa-times me-2"></i>Non, annuler
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Barre de statut -->
+        <div class="status-bar d-flex justify-content-between">
+            <div>Gestion Parc Automobile MIC</div>
+            <div id="datetime"></div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <script>
+        // Fonction pour basculer entre les écrans
+        function showScreen(screenId) {
+            // Masquer tous les écrans
+            document.querySelectorAll('.app-body').forEach(el => {
+                el.style.display = 'none';
+            });
+            
+            // Afficher l'écran demandé
+            document.getElementById(screenId).style.display = 'block';
+            
+            // Mettre à jour la date et l'heure
+            updateDateTime();
+        }
+        
+        // Mettre à jour la date et l'heure
+        function updateDateTime() {
+            const now = new Date();
+            document.getElementById('datetime').textContent = now.toLocaleString('fr-FR');
+        }
+        
+        // Mettre à jour l'heure toutes les secondes
+        setInterval(updateDateTime, 1000);
+        
+        // Afficher l'écran d'accueil au chargement
+        window.onload = function() {
+            showScreen('accueil');
+            updateDateTime();
+        };
+    </script>
+</body>
+</html>
